@@ -2,16 +2,17 @@
 
 int Bottom_Up(int n) {
 	int x = n / 3;
+	int y = n / 5;
 	int tmp = -1;
-	for (int i = 0; i <= x; i++) {//5
-		for (int j = 0; i + j <= x; j++) {//3
-			if ((n - 3 * j - 5 * i) == 0) {
-				tmp = i + j;
+	for (int i = 0; i <= x; i++) {//3
+		for (int j = 0; j <= y; j++) {//5
+			if ((n - 5 * j - 3 * i) == 0) {
+				return i + j;
 			}
 		}
 	}
 
-	return tmp;
+	return -1;
 }
 
 int main(void) {
