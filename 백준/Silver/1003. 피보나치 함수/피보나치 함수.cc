@@ -10,7 +10,7 @@ int cache0[41];
 int cache1[41];
 
 int main() {
-	int T, N, answer_first, answer_second;
+	int T, N;
 
 	cin >> T;
 
