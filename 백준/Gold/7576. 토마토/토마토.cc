@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void BFS(queue<pair<int, int>> q);
+void BFS(queue<pair<int, int>>& q);
 
 vector<vector<int>> adj;
 vector<vector<int>> date;
@@ -62,7 +62,7 @@ int main() {
 }
 
 // date 계산
-void BFS(queue<pair<int, int>> q) {
+void BFS(queue<pair<int, int>>& q) {
 	int dy[] = { -1, 1, 0, 0 }; int dx[] = { 0, 0, -1, 1 };
 	int currentX, currentY, nextX, nextY;
 
