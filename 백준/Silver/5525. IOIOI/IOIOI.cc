@@ -6,26 +6,34 @@ using namespace std;
 int main()
 {
 
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int N, M;
-    string str, nstr;
+    string str;
 
     cin >> N >> M >> str;
 
-    nstr = "IOI";
-    for (int i = 1; i < N; i++)
-    {
-        nstr += "OI";
-    }
-
-    int index = str.find(nstr);
     int answer = 0;
-
-    for (int pos = index; pos != string::npos; pos = str.find(nstr, pos + 1))
+    for (int i = 0; i < M; i++)
     {
-        answer++;
+        if (str[i] == 'I')
+        {
+            int k = 0;
+
+            while (str[i + 1] == 'O' && str[i + 2] == 'I')
+            {
+                k++;
+                if (k == N)
+                {
+                    answer++;
+                    k--;
+                }
+
+                i += 2;
+            }
+        }
     }
 
     cout << answer;
-
-    return 0;
 }
