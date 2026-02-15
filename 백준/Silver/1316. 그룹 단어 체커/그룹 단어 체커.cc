@@ -1,16 +1,12 @@
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
 using namespace std;
 
-bool fuc(string str);
+int check(string str);
 
 int main()
 {
-
-    int N, total = 0;
+    int N, count = 0;
     string str;
 
     cin >> N;
@@ -18,39 +14,32 @@ int main()
     for (int i = 0; i < N; i++)
     {
         cin >> str;
-
-        if (fuc(str))
-            total++;
+        count += check(str);
     }
 
-    cout << total << "\n";
+    cout << count;
+
     return 0;
 }
 
-bool fuc(string str)
+int check(string str)
 {
-    vector<char> dic;
+    int arr[26] = {0};
 
-    char word = str[0];
-    dic.push_back(word);
-
-    for (int i = 1; i < str.size(); i++)
+    for (int i = 0; i < str.size(); i++)
     {
-        if (word == str[i])
+        char c = str[i];
+        arr[c - 'a'] += 1;
+        if (i != 0 && str[i - 1] == str[i])
             continue;
         else
         {
-            // 이미 나온 것이라면
-            if (dic.end() != find(dic.begin(), dic.end(), str[i]))
+            if (arr[c - 'a'] > 1)
             {
-                return false;
+                return 0;
             }
-
-            // 이미 나온 것이 아니라면
-            word = str[i];
-            dic.push_back(word);
         }
     }
 
-    return true;
+    return 1;
 }
