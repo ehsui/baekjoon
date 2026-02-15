@@ -2,21 +2,15 @@
 
 using namespace std;
 
-bool isUsed[10] = {false};
-int N, M, arr[10], selected[10];
 void back(int depth);
+int N, M, answer[9];
 
 int main()
 {
 
     cin >> N >> M;
 
-    for (int i = 1; i <= N; i++)
-        arr[i] = i;
-
     back(0);
-
-    return 0;
 }
 
 void back(int depth)
@@ -24,18 +18,17 @@ void back(int depth)
 
     if (depth == M)
     {
-        for (int i = 0; i < M - 1; i++)
+        for (int i = 0; i < M; i++)
         {
-            cout << selected[i] << " ";
+            cout << answer[i] << " ";
         }
-        cout << selected[M - 1] << "\n";
-
+        cout << "\n";
         return;
     }
 
-    for (int cur = 1; cur <= N; cur++)
+    for (int i = 1; i <= N; i++)
     {
-        selected[depth] = arr[cur];
+        answer[depth] = i;
         back(depth + 1);
     }
 }
