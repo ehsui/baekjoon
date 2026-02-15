@@ -1,32 +1,22 @@
 #include <iostream>
-#include <cstring>
 
 using namespace std;
 
-long long cache[1001];
+int main()
+{
+    int n, dp[1001];
 
-long long SOF(int n);
+    cin >> n;
 
-int main() {
-	int n;
+    dp[1] = 1;
+    dp[2] = 2;
 
-	cin >> n;
+    for (int i = 3; i <= n; i++)
+    {
+        dp[i] = (dp[i - 1] + dp[i - 2]) % 10007;
+    }
 
-	memset(cache, -1, sizeof(cache));
-	cache[1] = 1;
-	cache[2] = 2;
-
-	cout << SOF(n) % 10007;
-
-	return 0;
-}
-
-long long SOF(int n) {
-
-	if (cache[n] != -1) return cache[n];
-	else {
-
-		cache[n] = SOF(n - 1) % 10007 + SOF(n - 2) % 10007;
-		return cache[n];
-	}
+    cout << dp[n] % 10007;
+    
+    return 0;
 }
