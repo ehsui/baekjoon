@@ -1,52 +1,43 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
-int k, Selected[7], S[13];
-void back(int depth, int start);
+void back(int depth, int prev);
+int num[6], k, arr[13];
 
 int main()
 {
 
-    int tmp;
-
     while (1)
     {
-
         cin >> k;
-
         if (k == 0)
             return 0;
 
         for (int i = 0; i < k; i++)
         {
-            cin >> S[i];
+            cin >> arr[i];
         }
 
-        back(0, 0);
-
+        back(0, -1);
         cout << "\n";
     }
-    return 0;
 }
 
-void back(int depth, int start)
+void back(int depth, int prev)
 {
 
     if (depth == 6)
     {
-        for (int i = 0; i < 5; i++)
-        {
-            cout << Selected[i] << " ";
-        }
-        cout << Selected[5] << "\n";
+        for (int i = 0; i < 6; i++)
+            cout << num[i] << " ";
+        cout << "\n";
         return;
     }
 
-    for (int i = start; i < k; i++)
+    for (int i = prev + 1; i < k; i++)
     {
-        Selected[depth] = S[i];
-        back(depth + 1, i + 1);
+        num[depth] = arr[i];
+        back(depth + 1, i);
     }
 }
