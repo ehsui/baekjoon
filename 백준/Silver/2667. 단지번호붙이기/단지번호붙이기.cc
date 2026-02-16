@@ -4,36 +4,31 @@
 
 using namespace std;
 
-int dy[4] = {-1, 0, 1, 0};
-int dx[4] = {0, 1, 0, -1};
+struct point
+{
+    int x;
+    int y;
+};
 
-int DFS(int y, int x);
+int map[25][25], N;
+bool visited[25][25];
+int dfs(point start);
 
-int N, tmp;
-int **map;
-bool **visited;
+point dxy[4] = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
 
 int main()
 {
+    vector<point> start;
     vector<int> answer;
 
     cin >> N;
-
-    map = new int *[N];
-    visited = new bool *[N];
-
-    for (int i = 0; i < N; i++)
-    {
-        map[i] = new int[N];
-        visited[i] = new bool[N];
-    }
 
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
         {
-            visited[i][j] = false;
             scanf("%1d", &map[i][j]);
+            visited[i][j] = 0;
         }
     }
 
@@ -41,41 +36,42 @@ int main()
     {
         for (int j = 0; j < N; j++)
         {
-            if (map[i][j] == 1 && !visited[i][j])
+            if (visited[i][j] == 0 && map[i][j] == 1)
             {
-                answer.push_back(DFS(i, j));
+                answer.push_back(dfs({j, i}));
             }
         }
     }
 
     sort(answer.begin(), answer.end());
 
-    cout << answer.size() << endl;
+    cout << answer.size() << "\n";
 
     for (int i = 0; i < answer.size(); i++)
     {
-        cout << answer[i] << endl;
+        cout << answer[i] << "\n";
     }
+
+    return 0;
 }
 
-int DFS(int y, int x)
+int dfs(point cur)
 {
-    visited[y][x] = true;
+    visited[cur.y][cur.x] = true;
     int count = 1;
 
     for (int i = 0; i < 4; i++)
     {
-        int ny = y + dy[i];
-        int nx = x + dx[i];
+        point next = {cur.x + dxy[i].x,
+                      cur.y + dxy[i].y};
 
-        if (ny < 0 || nx < 0 || ny >= N || nx >= N)
-            continue;
-
-        if (map[ny][nx] == 1 && !visited[ny][nx])
+        if (next.x >= 0 && next.y >= 0 && next.x < N && next.y < N)
         {
-            count += DFS(ny, nx);
+            if (map[next.y][next.x] == 1 && !visited[next.y][next.x])
+            {
+                count += dfs({next.x, next.y});
+            }
         }
     }
-
     return count;
 }
