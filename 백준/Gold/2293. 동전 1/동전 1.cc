@@ -7,30 +7,27 @@ using namespace std;
 int main()
 {
 
-    int n, k, tmp;
-    vector<int> coins;
-    int dp[10001] = {
-        0,
-    };
+    int n, k;
 
     cin >> n >> k;
+    vector<int> coins(n);
+    vector<int> dp(k + 1);
+
+    dp.assign(k + 1, 0);
 
     for (int i = 0; i < n; i++)
     {
-        cin >> tmp;
-        coins.push_back(tmp);
+        cin >> coins[i];
     }
-
     sort(coins.begin(), coins.end());
 
     dp[0] = 1;
 
     for (int i = 0; i < n; i++)
     {
-        int C = coins[i];
-        for (int j = C; j <= k; j++)
+        for (int j = coins[i]; j <= k; j++)
         {
-            dp[j] += dp[j - C];
+            dp[j] += dp[j - coins[i]];
         }
     }
 
